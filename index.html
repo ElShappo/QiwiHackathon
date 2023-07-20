@@ -25,7 +25,9 @@
                     console.log(values);
 
                     let dropdown = document.querySelector('.dropdown');
-                    dropdown.insertAdjacentHTML('afterbegin', '<option value="second">Second Value</option>')
+                    for (let {ID, Name} of values) {
+                        dropdown.insertAdjacentHTML('afterbegin', `<option value="second">${ID} - ${Name}</option>`)
+                    }
 
                 });
 
