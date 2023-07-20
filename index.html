@@ -19,21 +19,47 @@
     let data = fetch('https://www.cbr-xml-daily.ru/daily_json.js')
                 .then(response => response.json())
                 .then(response => {
+                    function formatDateString(dateString) {
+                        let str = '';
+                        let time = '';
+                        let index = 0;
+                        for (let char of response.Date) {
+                            if (char === '-') {
+                                char = '/';
+                            }
+                            if (char === 'T') {
+                                ++index;
+                                break;
+                            } else {
+                                str += char;
+                            }
+                            ++index;
+                        }
+
+                        for (let i=index; i<response.Date.length; ++i) {
+                            let char = response.Date[i];
+                            if (char !== '+') {
+                                time += char;
+                            } else {
+                                break;
+                            }
+                        }
+                        return [str, time];
+                    }
+
                     let valutes = response.Valute;
-                    let entries = Object.entries(valutes);
 
                     let keys = Object.keys(valutes);
                     let values = Object.values(valutes);
 
-                    console.log(keys);
-                    console.log(values);
-
                     let dropdown = document.querySelector('.dropdown');
                     let count = 1;
+
                     for (let {ID, Name} of values) {
                         dropdown.insertAdjacentHTML('beforeend', `<option value="${count}">${ID} - ${Name}</option>`);
                         ++count;
                     }
+                    
                     dropdown.addEventListener('change', (e) => {
                         let id = e.target.value;
                         let currentElement = values[id-1];
@@ -47,10 +73,17 @@
                         
                         detailsHeader.innerHTML = `${ID} - ${Name} (${CharCode})`;
 
+                        let [formattedCurrentDate, currentTime] = formatDateString(response.Date);
+                        let [formattedPreviousDate, previousTime] = formatDateString(response.PreviousDate);
+
+                        console.log(formattedCurrentDate);
+
                         let detailsData = document.querySelector('.valute-details-data');
-                        detailsData.innerHTML = `<div>${response.Date}</div>
-                        <div>${response.PreviousDate}</div>`;
+                        detailsData.innerHTML = `<div>${formattedCurrentDate}, ${currentTime} - ${currentElement.Value}</div>
+                        <div>${formattedPreviousDate}, ${previousTime} - ${currentElement.Previous}</div>`;
                     });
+                }).catch(error => {
+                    console.log('Error occurred!');
                 });
 
 </script>
