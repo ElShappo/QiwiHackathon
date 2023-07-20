@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="./index.js" type="module"></script> -->
+</head>
+<body>
+    <select name="choice" class="dropdown">
+        <option value="first" selected disabled>Выберите валюту</option>
+    </select>
+</body>
+
+<script>
+    let data = fetch('https://www.cbr-xml-daily.ru/daily_json.js')
+                .then(response => response.json())
+                .then(response => {
+                    let valutes = response.Valute;
+                    let entries = Object.entries(valutes);
+
+                    let keys = Object.keys(valutes);
+                    let values = Object.values(valutes);
+
+                    console.log(keys);
+                    console.log(values);
+
+                    let dropdown = document.querySelector('.dropdown');
+                    dropdown.insertAdjacentHTML('afterbegin', '<option value="second">Second Value</option>')
+
+                });
+
+    dropdownButton.addEventListener('click', (e) => {
+        let info = document.createElement('div');
+        info.innerHTML = ''
+        
+    })
+
+</script>
+
+<link rel="stylesheet" href="./styles.css" />
+</html>
