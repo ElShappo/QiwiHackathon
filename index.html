@@ -7,12 +7,8 @@
 </head>
 <body>
     <main class="valute-details">
-        <header class="valute-details-header">
-
-        </header>
-        <div class="valute-details-data">
-
-        </div>
+        <header class="valute-details-header"></header>
+        <div class="valute-details-data"></div>
     </main>
     <select name="choice" class="dropdown">
         <option value="-1" selected disabled>Выберите валюту</option>
@@ -35,7 +31,7 @@
                     let dropdown = document.querySelector('.dropdown');
                     let count = 1;
                     for (let {ID, Name} of values) {
-                        dropdown.insertAdjacentHTML('afterbegin', `<option value="${count}">${ID} - ${Name}</option>`);
+                        dropdown.insertAdjacentHTML('beforeend', `<option value="${count}">${ID} - ${Name}</option>`);
                         ++count;
                     }
                     dropdown.addEventListener('change', (e) => {
@@ -51,19 +47,10 @@
                         
                         detailsHeader.innerHTML = `${ID} - ${Name} (${CharCode})`;
 
-                        let date = response.Date;
-                        let reviousDate = response.PreviousDate;
-
-                        console.log(date, PreviousDate)
-
                         let detailsData = document.querySelector('.valute-details-data');
                         detailsData.innerHTML = `<div>${response.Date}</div>
                         <div>${response.PreviousDate}</div>`;
-                        
-
-
                     });
-
                 });
 
 </script>
