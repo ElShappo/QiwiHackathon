@@ -48,10 +48,19 @@
                         let ID = currentElement.ID;
                         let Name = currentElement.Name;
                         let CharCode = currentElement.CharCode;
-
-                        let currentDate = 
                         
                         detailsHeader.innerHTML = `${ID} - ${Name} (${CharCode})`;
+
+                        let date = response.Date;
+                        let reviousDate = response.PreviousDate;
+
+                        console.log(date, PreviousDate)
+
+                        let detailsData = document.querySelector('.valute-details-data');
+                        detailsData.innerHTML = `<div>${response.Date}</div>
+                        <div>${response.PreviousDate}</div>`;
+                        
+
 
                     });
 
