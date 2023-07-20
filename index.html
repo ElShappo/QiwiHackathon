@@ -6,8 +6,16 @@
     <!-- <script src="./index.js" type="module"></script> -->
 </head>
 <body>
+    <main class="valute-details">
+        <header class="valute-details-header">
+
+        </header>
+        <div class="valute-details-data">
+
+        </div>
+    </main>
     <select name="choice" class="dropdown">
-        <option value="first" selected disabled>Выберите валюту</option>
+        <option value="-1" selected disabled>Выберите валюту</option>
     </select>
 </body>
 
@@ -25,17 +33,29 @@
                     console.log(values);
 
                     let dropdown = document.querySelector('.dropdown');
+                    let count = 1;
                     for (let {ID, Name} of values) {
-                        dropdown.insertAdjacentHTML('afterbegin', `<option value="second">${ID} - ${Name}</option>`)
+                        dropdown.insertAdjacentHTML('afterbegin', `<option value="${count}">${ID} - ${Name}</option>`);
+                        ++count;
                     }
+                    dropdown.addEventListener('change', (e) => {
+                        let id = e.target.value;
+                        let currentElement = values[id-1];
+
+                        let detailsHeader = document.querySelector('.valute-details-header');
+                        console.log(detailsHeader);
+
+                        let ID = currentElement.ID;
+                        let Name = currentElement.Name;
+                        let CharCode = currentElement.CharCode;
+
+                        let currentDate = 
+                        
+                        detailsHeader.innerHTML = `${ID} - ${Name} (${CharCode})`;
+
+                    });
 
                 });
-
-    dropdownButton.addEventListener('click', (e) => {
-        let info = document.createElement('div');
-        info.innerHTML = ''
-        
-    })
 
 </script>
 
